@@ -27,5 +27,9 @@ class UserController {
   }
   public async login(req: Request, res: Response) {
     let { email, password } = req.body;
+    let userExist = await userServices.getByEmail(email);
+    if (!userExist) throw new Error();
   }
 }
+
+export default new UserController();

@@ -3,8 +3,9 @@ import {
   PrimaryGeneratedColumn,
   Column,
   BaseEntity,
-  OneToMany,
+  ManyToOne,
 } from 'typeorm';
+import { User } from './User';
 
 @Entity()
 export class Reclamation extends BaseEntity {
@@ -19,4 +20,7 @@ export class Reclamation extends BaseEntity {
 
   @Column({ nullable: false })
   date: Date;
+
+  @ManyToOne(() => User, (user) => user.reclamations)
+  user: User;
 }

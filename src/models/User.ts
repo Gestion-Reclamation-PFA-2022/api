@@ -5,6 +5,7 @@ import {
   BaseEntity,
   OneToMany,
 } from 'typeorm';
+import { Reclamation } from './Reclamation';
 
 @Entity()
 export class User extends BaseEntity {
@@ -22,4 +23,7 @@ export class User extends BaseEntity {
 
   @Column({ nullable: false })
   password: string;
+
+  @OneToMany(() => Reclamation, (reclamation) => reclamation.user)
+  reclamations: Reclamation[];
 }
