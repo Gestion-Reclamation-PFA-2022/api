@@ -5,4 +5,4 @@ interface UserAttrs {
   password: string;
 }
 
-export { UserAttrs };
+export default UserAttrs;

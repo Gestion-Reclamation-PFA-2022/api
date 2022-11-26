@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import userServices from '../services/user.services';
 import pwdServices from '../services/pwd.services';
-import { UserAttrs } from '../interfaces/user.interfaces';
+import UserAttrs from '../interfaces/user.interfaces';
+import appendSession from '../utils/append-session.utils';
 
 class UserController {
   public async getAll(req: Request, res: Response) {
@@ -20,7 +21,11 @@ class UserController {
         password: await pwdServices.hash(password),
       };
       await userServices.create(newUser);
+      appendSession(res, newUser);
       res.status(200).send('user added');
     }
+  }
+  public async login(req: Request, res: Response) {
+    let { email, password } = req.body;
   }
 }

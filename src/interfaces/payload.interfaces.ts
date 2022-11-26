@@ -1,6 +1,7 @@
 interface PayloadAttrs {
-  email: string;
   name: string;
+  email: string;
+  phone: string;
 }
 
 export { PayloadAttrs };

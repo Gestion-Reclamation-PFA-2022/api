@@ -3,6 +3,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
 import { UserRouter } from './routes/user.routes';
 import { NotFoundRouter } from './routes/404.routes';
 
@@ -12,6 +13,7 @@ async function start() {
   dotenv.config();
 
   app.use(express.json());
+  app.use(cookieParser());
 
   app.use(helmet.xssFilter());
   app.use(helmet.noSniff());

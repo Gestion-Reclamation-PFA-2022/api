@@ -1,5 +1,5 @@
 import { User } from '../models/User';
-import { UserAttrs } from '../interfaces/user.interfaces';
+import UserAttrs from '../interfaces/user.interfaces';
 
 class UserService {
   public async getAll() {
@@ -12,7 +12,7 @@ class UserService {
     return await User.findOne({ where: { email: email } });
   }
   public async create(user: UserAttrs) {
-    return User.create(user);
+    return User.create(user as User);
   }
   public async delete(email: string) {
     return User.delete({ email: email });
