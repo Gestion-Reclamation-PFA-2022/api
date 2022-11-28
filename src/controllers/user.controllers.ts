@@ -3,6 +3,7 @@ import userServices from '../services/user.services';
 import pwdServices from '../services/pwd.services';
 import UserAttrs from '../interfaces/user.interfaces';
 import appendSession from '../utils/append-session.utils';
+import { BadRequestError } from '../errors/BadRequest.errors';
 
 class UserController {
   public async getAll(req: Request, res: Response) {
@@ -28,7 +29,7 @@ class UserController {
   public async login(req: Request, res: Response) {
     let { email, password } = req.body;
     let userExist = await userServices.getByEmail(email);
-    if (!userExist) throw new Error();
+    if (!userExist) throw new BadRequestError();
   }
 }
 
