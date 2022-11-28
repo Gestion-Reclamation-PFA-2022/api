@@ -1,8 +1,8 @@
 export class BadRequestError extends Error {
-  reason = 'Bad request';
-  constructor(reason: string) {
+  reason = '';
+  constructor() {
     super();
-    this.reason = reason;
+    this.reason = 'Bad request';
     Object.setPrototypeOf(this, BadRequestError.prototype);
   }
 }

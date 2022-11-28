@@ -7,9 +7,19 @@ const router = Router();
 
 router.get('/api/user/all', userControllers.getAll);
 
-router.post('/api/user/signup', userControllers.signup);
+router.post(
+  '/api/user/signup',
+  signupValidator,
+  validation,
+  userControllers.signup
+);
 
-router.post('/api/user/login', userControllers.login);
+router.post(
+  '/api/user/login',
+  loginValidator,
+  validation,
+  userControllers.login
+);
 
 router.get('/api/user/me');
 

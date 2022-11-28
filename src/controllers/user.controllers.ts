@@ -30,6 +30,12 @@ class UserController {
     let { email, password } = req.body;
     let userExist = await userServices.getByEmail(email);
     if (!userExist) throw new BadRequestError();
+    if ((await pwdServices.verify(userExist.password, password)) === false) {
+      throw new BadRequestError();
+    } else {
+      await appendSession(res, userExist);
+      res.status(200).send('logged In');
+    }
   }
 }
 

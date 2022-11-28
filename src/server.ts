@@ -4,8 +4,10 @@ import morgan from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import AppDataSource from './db/db';
 import { UserRouter } from './routes/user.routes';
 import { NotFoundRouter } from './routes/404.routes';
+import { errorHandler } from './middlewares/error-handler';
 
 async function start() {
   const app = express();
@@ -30,6 +32,16 @@ async function start() {
 
   app.use(UserRouter);
   app.use(NotFoundRouter);
+
+  app.use(errorHandler);
+
+  AppDataSource.initialize()
+    .then((): void => {
+      console.log('connected to mysql db');
+    })
+    .catch((err): void => {
+      console.log(err.message);
+    });
 
   const server = app.listen(process.env.SERVER_PORT, () => {
     console.log(` app running on port ${process.env.SERVER_PORT}`);
