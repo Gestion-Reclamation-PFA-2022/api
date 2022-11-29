@@ -3,6 +3,7 @@ import userServices from '../services/user.services';
 import pwdServices from '../services/pwd.services';
 import appendSession from '../utils/append-session.utils';
 import { BadRequestError } from '../errors/BadRequest.errors';
+import deleteSession from '../utils/delete-session.utils';
 
 class UserController {
   public async getAll(req: Request, res: Response) {
@@ -38,6 +39,10 @@ class UserController {
       await appendSession(res, userExist);
       res.status(200).send('logged In');
     }
+  }
+
+  public async signout(req: Request, res: Response) {
+    deleteSession(res);
   }
 }
 

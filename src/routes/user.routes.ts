@@ -30,4 +30,6 @@ router.get(
   }
 );
 
+router.get('/api/user/signout', userControllers.signout);
+
 export { router as UserRouter };
