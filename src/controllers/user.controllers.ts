@@ -13,19 +13,19 @@ class UserController {
     let { name, email, password, phone } = req.body;
     let userExist = await userServices.getByEmail(email);
     if (userExist) {
-      throw new BadRequestError('Email or Password incorrect');
+      throw new BadRequestError('Email already used');
     } else {
-      let newUser = {
-        name: name,
-        email: email,
-        phone: phone,
-        password: await pwdServices.hash(password),
-      };
-      try {
+      let phoneExist = await userServices.getByPhone(phone);
+      if (phoneExist) {
+        throw new BadRequestError('Phone must be unique');
+      } else {
+        let newUser = {
+          name: name,
+          email: email,
+          phone: phone,
+          password: await pwdServices.hash(password),
+        };
         userServices.create(newUser);
-      } catch {
-        console.log('here');
-        throw new BadRequestError('Email and Phone must be unique');
       }
     }
   }

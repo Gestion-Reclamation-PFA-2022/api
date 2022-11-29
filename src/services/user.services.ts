@@ -17,6 +17,9 @@ class UserService {
   public async delete(email: string) {
     return User.delete({ email: email });
   }
+  public async getByPhone(phone: string) {
+    return User.findOne({ where: { phone: phone } });
+  }
 }
 
 export default new UserService();
