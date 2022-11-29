@@ -12,7 +12,7 @@ class UserController {
     let { name, email, password, phone } = req.body;
     let userExist = await userServices.getByEmail(email);
     if (userExist) {
-      throw new BadRequestError();
+      throw new BadRequestError('Email or Password incorrect');
     } else {
       let newUser = {
         name: name,
@@ -20,23 +20,20 @@ class UserController {
         phone: phone,
         password: await pwdServices.hash(password),
       };
-      userServices
-        .create(newUser)
-        .then(() => {
-          appendSession(res, newUser);
-          res.status(200).send('user added');
-        })
-        .catch(() => {
-          throw new BadRequestError();
-        });
+      try {
+        userServices.create(newUser);
+      } catch {
+        console.log('here');
+        throw new BadRequestError('Email and Phone must be unique');
+      }
     }
   }
   public async login(req: Request, res: Response) {
     let { email, password } = req.body;
     let userExist = await userServices.getByEmail(email);
-    if (!userExist) throw new BadRequestError();
+    if (!userExist) throw new BadRequestError('Email or Password incorrect');
     if ((await pwdServices.verify(userExist.password, password)) === false) {
-      throw new BadRequestError();
+      throw new BadRequestError('Email or Password incorrect');
     } else {
       await appendSession(res, userExist);
       res.status(200).send('logged In');
