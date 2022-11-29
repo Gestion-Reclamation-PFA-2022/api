@@ -12,8 +12,7 @@ class UserService {
     return await User.findOne({ where: { email: email } });
   }
   public async create(user: UserAttrs) {
-    let u = User.create(user as User);
-    return u.save();
+    return User.create(user as User).save();
   }
   public async delete(email: string) {
     return User.delete({ email: email });

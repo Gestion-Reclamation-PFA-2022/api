@@ -4,10 +4,11 @@ import morgan from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
+import 'express-async-errors';
 import AppDataSource from './db/db';
+import { errorHandler } from './middlewares/error-handler';
 import { UserRouter } from './routes/user.routes';
 import { NotFoundRouter } from './routes/404.routes';
-import { errorHandler } from './middlewares/error-handler';
 
 async function start() {
   const app = express();

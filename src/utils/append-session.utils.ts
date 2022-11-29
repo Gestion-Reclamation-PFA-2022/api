@@ -9,6 +9,8 @@ const appendSession = async (res: Response, payload: UserAttrs) => {
     phone: payload.phone,
   });
 
+  console.log(token);
+
   res.cookie('accessToken', token, {
     httpOnly: true,
     secure: true,
