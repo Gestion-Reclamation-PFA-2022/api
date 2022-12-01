@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 echo "before : "
 git status
 git add .
