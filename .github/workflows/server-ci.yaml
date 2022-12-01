@@ -1,0 +1,22 @@
+name: Github auto Deployment
+on:
+  push:
+    branches: [master]
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: sshing into server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd  server
+            eval "$(ssh-agent -s)"
+            ssh-add ~/.ssh/mg-gh
+            git stash
+            git pull
+            git stash pop

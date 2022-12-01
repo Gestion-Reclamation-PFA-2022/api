@@ -15,17 +15,16 @@ class UserController {
     if (userExist) {
       throw new BadRequestError('Email already used');
     } else {
-      let phoneExist = await userServices.getByPhone(phone);
-      if (phoneExist) {
-        throw new BadRequestError('Phone must be unique');
-      } else {
+      try {
         let newUser = {
           name: name,
           email: email,
           phone: phone,
           password: await pwdServices.hash(password),
         };
-        userServices.create(newUser);
+        await userServices.create(newUser);
+      } catch (err: any) {
+        throw new BadRequestError('Phone already used');
       }
     }
   }

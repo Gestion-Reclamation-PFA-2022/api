@@ -52,6 +52,7 @@ async function start() {
     console.log('closing http server');
     server.close(() => {
       console.log('HTTP closed');
+      process.exit(1);
     });
   });
 
@@ -59,6 +60,7 @@ async function start() {
     console.log('closing http server');
     server.close(() => {
       console.log('HTTP closed');
+      process.exit(1);
     });
   });
 }
