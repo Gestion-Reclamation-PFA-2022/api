@@ -11,7 +11,7 @@ echo "enter commit msg : "
 read msg
 echo "do you want to skip ci y/n"
 read skip
-if [ $(echo ${skipˆˆ}) -eq 'Y' ]
+if [ $skipˆˆ == 'Y' ]
 then 
     git commit -m "$msg [skip ci]"
 else
