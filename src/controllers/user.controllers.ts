@@ -23,6 +23,7 @@ class UserController {
           password: await pwdServices.hash(password),
         };
         await userServices.create(newUser);
+        res.status(200).send('working');
       } catch (err: any) {
         throw new BadRequestError('Phone already used');
       }
