@@ -13,11 +13,11 @@ class ReclamationController {
       let newReclamation = {
         subject: subject,
         description: description,
-        date: date,
+        date: date.replaceAll(':', '-'),
         user: userExist,
       };
       console.log(newReclamation);
-      await reclamationServices.create(newReclamation);
+      //await reclamationServices.create(newReclamation);
       res.status(200).send('reclamation added');
     }
   }
