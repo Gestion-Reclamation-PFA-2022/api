@@ -20,3 +20,4 @@ jobs:
             git stash
             git pull
             git stash pop
+            echo "hello"
