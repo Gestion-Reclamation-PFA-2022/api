@@ -27,3 +27,17 @@ export const loginValidator = [
     .trim()
     .withMessage('Password must at least have 5 characters'),
 ];
+
+export const reclamationValidator = [
+  body('subject')
+    .isString()
+    .isLength({ min: 5 })
+    .trim()
+    .withMessage('Subject must at leat have 5 characters'),
+  body('description')
+    .isString()
+    .isLength({ min: 5 })
+    .trim()
+    .withMessage('Description must at leat have 5 characters'),
+  //body('date').isDate().withMessage('Date must be valid'),
+];
