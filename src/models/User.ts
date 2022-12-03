@@ -6,6 +6,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { Reclamation } from './Reclamation';
+import Role from '../enums/role.enums';
 
 @Entity()
 export class User extends BaseEntity {
@@ -23,6 +24,9 @@ export class User extends BaseEntity {
 
   @Column({ nullable: false })
   password: string;
+
+  @Column({ nullable: false })
+  role: Role;
 
   @OneToMany(() => Reclamation, (reclamation) => reclamation.user)
   reclamations: Reclamation[];

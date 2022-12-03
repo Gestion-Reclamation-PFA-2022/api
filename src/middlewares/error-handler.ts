@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { NotFoundError } from '../errors/NotFound.errors';
 import { BadRequestError } from '../errors/BadRequest.errors';
 import { UnAuthorizedError } from '../errors/UnAuthorized.errors';
+import { ForbiddenError } from '../errors/Forbidden.errors';
 
 const errorHandler = (
   err: Error,
@@ -17,6 +18,9 @@ const errorHandler = (
   }
   if (err instanceof UnAuthorizedError) {
     res.status(401).send(err.reason);
+  }
+  if (err instanceof ForbiddenError) {
+    res.status(403).send(err.reason);
   }
 };
 

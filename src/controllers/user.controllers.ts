@@ -4,6 +4,7 @@ import pwdServices from '../services/pwd.services';
 import appendSession from '../utils/append-session.utils';
 import { BadRequestError } from '../errors/BadRequest.errors';
 import deleteSession from '../utils/delete-session.utils';
+import Role from '../enums/role.enums';
 
 class UserController {
   public async getAll(req: Request, res: Response) {
@@ -21,6 +22,7 @@ class UserController {
           email: email,
           phone: phone,
           password: await pwdServices.hash(password),
+          role: Role.user,
         };
         await userServices.create(newUser);
         res.status(200).send('working');

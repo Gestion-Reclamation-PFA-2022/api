@@ -6,7 +6,10 @@ import {
   loginValidator,
   reclamationValidator,
 } from '../validators/validators';
-import { AuthentificationCheck } from '../middlewares/ensure-authentificate.middlewares';
+import {
+  AuthentificationCheck,
+  AuthentificationCheckAdmin,
+} from '../middlewares/ensure-authentificate.middlewares';
 import reclamationControllers from '../controllers/reclamation.controllers';
 
 const router = Router();
@@ -27,6 +30,8 @@ router.post(
   userControllers.login
 );
 
+// NOT WORKING
+
 router.get(
   '/api/user/me',
   AuthentificationCheck,
@@ -44,5 +49,15 @@ router.post(
 );
 
 router.get('/api/user/signout', userControllers.signout);
+
+//TEST ROLE
+
+router.get(
+  '/api/admin/dashboard',
+  AuthentificationCheckAdmin,
+  (req: Request, res: Response) => {
+    res.status(200).send('welome admin');
+  }
+);
 
 export { router as UserRouter };

@@ -39,5 +39,7 @@ export const reclamationValidator = [
     .isLength({ min: 5 })
     .trim()
     .withMessage('Description must at leat have 5 characters'),
-  //body('date').isDate().withMessage('Date must be valid'),
+  body('date')
+    .isDate({ format: 'DD-MM-YYYY' })
+    .withMessage('Date must be valid'),
 ];

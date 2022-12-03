@@ -7,6 +7,7 @@ const appendSession = async (res: Response, payload: UserAttrs) => {
     name: payload.name,
     email: payload.email,
     phone: payload.phone,
+    role: payload.role,
   });
 
   // console.log(token);

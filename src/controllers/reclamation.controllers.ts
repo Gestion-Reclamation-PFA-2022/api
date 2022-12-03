@@ -13,7 +13,7 @@ class ReclamationController {
       let newReclamation = {
         subject: subject,
         description: description,
-        date: date.replaceAll(':', '-'),
+        date: date,
         user: userExist,
       };
       console.log(newReclamation);
