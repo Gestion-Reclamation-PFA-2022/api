@@ -1,10 +1,10 @@
-import Role from '../enums/role.enums';
+import { Role } from '../models/Role';
 
 interface PayloadAttrs {
   name: string;
   email: string;
   phone: string;
-  role: Role;
+  roles: Role[];
 }
 
 export { PayloadAttrs };

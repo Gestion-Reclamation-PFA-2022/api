@@ -3,14 +3,14 @@ import UserAttrs from '../interfaces/user.interfaces';
 import { Response } from 'express';
 
 const appendSession = async (res: Response, payload: UserAttrs) => {
-  let token = jwtServices.sign({
-    name: payload.name,
-    email: payload.email,
-    phone: payload.phone,
-    role: payload.role,
+  const user = Object.create({
+    ...payload,
+    password: undefined,
   });
 
-  // console.log(token);
+  const token = jwtServices.sign({
+    ...user,
+  });
 
   res.cookie('accessToken', token, {
     httpOnly: true,

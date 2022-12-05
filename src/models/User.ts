@@ -4,9 +4,11 @@ import {
   Column,
   BaseEntity,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { Reclamation } from './Reclamation';
-import Role from '../enums/role.enums';
+import { Role } from './Role';
 
 @Entity()
 export class User extends BaseEntity {
@@ -25,9 +27,10 @@ export class User extends BaseEntity {
   @Column({ nullable: false })
   password: string;
 
-  @Column({ nullable: false })
-  role: Role;
-
   @OneToMany(() => Reclamation, (reclamation) => reclamation.user)
   reclamations: Reclamation[];
+
+  @ManyToMany(() => Role)
+  @JoinTable()
+  roles: Role[];
 }

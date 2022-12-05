@@ -1,11 +1,11 @@
-import Role from '../enums/role.enums';
+import { Role } from '../models/Role';
 
 interface UserAttrs {
   name: string;
   email: string;
   phone: string;
   password: string;
-  role: Role;
+  roles: Role[];
 }
 
 export default UserAttrs;
