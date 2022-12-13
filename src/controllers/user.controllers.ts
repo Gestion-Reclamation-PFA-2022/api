@@ -4,6 +4,7 @@ import pwdServices from '../services/pwd.services';
 import appendSession from '../utils/append-session.utils';
 import { BadRequestError } from '../errors/BadRequest.errors';
 import deleteSession from '../utils/delete-session.utils';
+import RoleEnum from '../enums/role.enums';
 
 class UserController {
   public async getAll(req: Request, res: Response) {
@@ -13,22 +14,19 @@ class UserController {
   public async signup(req: Request, res: Response) {
     let { name, email, password, phone } = req.body;
     let userExist = await userServices.getByEmail(email);
-    if (userExist) {
-      throw new BadRequestError('Email already used');
-    } else {
-      try {
-        let newUser = {
-          name: name,
-          email: email,
-          phone: phone,
-          password: await pwdServices.hash(password),
-          roles: [],
-        };
-        await userServices.create(newUser);
-        res.status(200).send('working');
-      } catch (err: any) {
-        throw new BadRequestError('Phone already used');
-      }
+    if (userExist) throw new BadRequestError('Email already used');
+    try {
+      let newUser = {
+        name: name,
+        email: email,
+        phone: phone,
+        password: await pwdServices.hash(password),
+        role: RoleEnum.user,
+      };
+      await userServices.create(newUser);
+      res.status(200).send('working');
+    } catch (err: any) {
+      throw new BadRequestError('Phone already used');
     }
   }
 

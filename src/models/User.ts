@@ -7,8 +7,8 @@ import {
   ManyToMany,
   JoinTable,
 } from 'typeorm';
+import RoleEnum from '../enums/role.enums';
 import { Reclamation } from './Reclamation';
-import { Role } from './Role';
 
 @Entity()
 export class User extends BaseEntity {
@@ -30,7 +30,6 @@ export class User extends BaseEntity {
   @OneToMany(() => Reclamation, (reclamation) => reclamation.user)
   reclamations: Reclamation[];
 
-  @ManyToMany(() => Role)
-  @JoinTable()
-  roles: Role[];
+  @Column({ type: 'enum', enum: RoleEnum, nullable: true })
+  role: RoleEnum;
 }

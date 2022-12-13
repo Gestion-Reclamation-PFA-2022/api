@@ -12,15 +12,14 @@ const errorHandler = (
 ) => {
   if (err instanceof BadRequestError) {
     res.status(400).send(err.reason);
-  }
-  if (err instanceof NotFoundError) {
+  } else if (err instanceof NotFoundError) {
     res.status(404).send(err.reason);
-  }
-  if (err instanceof UnAuthorizedError) {
+  } else if (err instanceof UnAuthorizedError) {
     res.status(401).send(err.reason);
-  }
-  if (err instanceof ForbiddenError) {
+  } else if (err instanceof ForbiddenError) {
     res.status(403).send(err.reason);
+  } else {
+    res.status(500).send(err.message);
   }
 };
 

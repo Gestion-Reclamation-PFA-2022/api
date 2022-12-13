@@ -12,7 +12,6 @@ export const AuthentificationCheck = async (
   if (!accessToken) throw new UnAuthorizedError();
   let currentUser = jwtServices.verify(accessToken);
   if (!currentUser) throw new UnAuthorizedError();
-  req.currentUser = currentUser.email;
+  req.currentUser = currentUser;
   next();
 };
-

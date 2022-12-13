@@ -7,7 +7,7 @@ class reclamationSercice {
     return await Reclamation.create(reclamation as Reclamation).save();
   }
   public async getAllReclamations() {
-    return await Reclamation.find({ relations: { user: true } });
+    return await Reclamation.find();
   }
   public async getUserReclamations(user: User) {
     return await Reclamation.find();

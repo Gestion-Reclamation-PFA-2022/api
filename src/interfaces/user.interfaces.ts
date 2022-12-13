@@ -1,11 +1,9 @@
-import { Role } from '../models/Role';
+import RoleEnum from '../enums/role.enums';
 
-interface UserAttrs {
+export interface UserAttrs {
   name: string;
   email: string;
   phone: string;
   password: string;
-  roles: Role[];
+  role: RoleEnum;
 }
-
-export default UserAttrs;

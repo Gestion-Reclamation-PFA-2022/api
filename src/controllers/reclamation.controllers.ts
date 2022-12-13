@@ -1,11 +1,12 @@
 import userServices from '../services/user.services';
 import reclamationServices from '../services/reclamation.services';
 import { Request, Response } from 'express';
+import { PayloadAttrs } from '../interfaces/payload.interfaces';
 
 class ReclamationController {
   public async create(req: Request, res: Response) {
-    let currentUser = req.currentUser;
-    let userExist = await userServices.getByEmail(currentUser as string);
+    let currentUser = req.currentUser as PayloadAttrs;
+    let userExist = await userServices.getByEmail(currentUser.email);
     if (!userExist) {
       res.status(400).send('login again');
     } else {

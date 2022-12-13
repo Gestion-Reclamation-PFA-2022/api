@@ -1,5 +1,5 @@
 import { User } from '../models/User';
-import UserAttrs from '../interfaces/user.interfaces';
+import { UserAttrs } from '../interfaces/user.interfaces';
 
 class UserService {
   public async getAll() {

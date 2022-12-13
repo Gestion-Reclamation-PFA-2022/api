@@ -1,5 +1,5 @@
 import jwtServices from '../services/jwt.services';
-import UserAttrs from '../interfaces/user.interfaces';
+import { UserAttrs } from '../interfaces/user.interfaces';
 import { Response } from 'express';
 
 const appendSession = async (res: Response, payload: UserAttrs) => {

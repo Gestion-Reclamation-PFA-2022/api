@@ -1,20 +1,17 @@
 import { Request, Response, NextFunction } from 'express';
 import { UnAuthorizedError } from '../errors/UnAuthorized.errors';
 import { ForbiddenError } from '../errors/Forbidden.errors';
-import RoleAttrs from '../interfaces/role.interfaces';
 import userServices from '../services/user.services';
+import RoleEnum from '../enums/role.enums';
 
-export const ensureRole = async (role: RoleAttrs) => {
+export const ensureRole = async (role: RoleEnum) => {
   return async (req: Request, res: Response, next: NextFunction) => {
-    let currentUser = req.currentUser;
+    const currentUser = req.currentUser;
     if (!currentUser) throw new UnAuthorizedError();
-    let user = await userServices.getByEmail(currentUser);
+    const user = await userServices.getByEmail(currentUser.email);
     if (!user) throw new UnAuthorizedError();
-    let userRoles = user.roles;
-    const hasRole = userRoles.some((role) => {
-      role === role;
-    });
-    if (!hasRole) throw new ForbiddenError('Forbidden');
+    const userRole = user.role;
+    if (userRole !== role) throw new ForbiddenError('You dont have role');
     next();
   };
 };

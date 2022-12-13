@@ -1,10 +1,8 @@
 import { User } from '../models/User';
 
-interface ReclamationAttrs {
+export interface ReclamationAttrs {
   subject: string;
   description: string;
   date: Date;
   user: User;
 }
-
-export { ReclamationAttrs };

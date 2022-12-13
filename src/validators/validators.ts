@@ -1,4 +1,5 @@
-import { body } from 'express-validator';
+import { body, oneOf, param } from 'express-validator';
+import RoleEnum from '../enums/role.enums';
 
 export const signupValidator = [
   body('email').isEmail().withMessage('Email must be valid'),
@@ -42,4 +43,15 @@ export const reclamationValidator = [
   body('date')
     .isDate({ format: 'DD-MM-YYYY' })
     .withMessage('Date must be valid'),
+];
+
+export const roleSignup = [
+  param('role').isString().isLength({ min: 4 }).withMessage('role undefined'),
+  oneOf(
+    [
+      param('role').toUpperCase().equals(RoleEnum.user),
+      param('role').toUpperCase().equals(RoleEnum.manager),
+    ],
+    'role undefined'
+  ),
 ];

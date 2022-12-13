@@ -5,24 +5,25 @@ import {
   signupValidator,
   loginValidator,
   reclamationValidator,
+  roleSignup,
 } from '../validators/validators';
 import { AuthentificationCheck } from '../middlewares/ensure-authentificate.middlewares';
 import reclamationControllers from '../controllers/reclamation.controllers';
-import roleServices from '../services/role.services';
 
 const router = Router();
 
 router.get('/api/user/all', userControllers.getAll);
 
 router.post(
-  '/api/user/signup',
+  '/api/:role/signup',
+  roleSignup,
   signupValidator,
   validation,
   userControllers.signup
 );
 
 router.post(
-  '/api/user/login',
+  '/api/:role/login',
   loginValidator,
   validation,
   userControllers.login
@@ -43,7 +44,5 @@ router.post(
   validation,
   reclamationControllers.create
 );
-
-router.get('/test', roleServices.initiateRole);
 
 export { router as UserRouter };

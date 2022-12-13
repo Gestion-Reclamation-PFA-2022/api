@@ -1,5 +1,3 @@
-interface RoleAttrs {
+export interface RoleAttrs {
   name: string;
 }
-
-export default RoleAttrs;
