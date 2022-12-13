@@ -55,3 +55,15 @@ export const roleSignup = [
     'role undefined'
   ),
 ];
+
+export const roleLogin = [
+  param('role').isString().isLength({ min: 4 }).withMessage('role undefined'),
+  oneOf(
+    [
+      param('role').toUpperCase().equals(RoleEnum.user),
+      param('role').toUpperCase().equals(RoleEnum.manager),
+      param('role').toUpperCase().equals(RoleEnum.admin),
+    ],
+    'role undefined'
+  ),
+];

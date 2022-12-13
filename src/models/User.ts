@@ -6,8 +6,12 @@ import {
   OneToMany,
   ManyToMany,
   JoinTable,
+  BeforeInsert,
+  BeforeUpdate,
+  AfterInsert,
 } from 'typeorm';
 import RoleEnum from '../enums/role.enums';
+import StatusEnum from '../enums/status.enums';
 import { Reclamation } from './Reclamation';
 
 @Entity()
@@ -32,4 +36,13 @@ export class User extends BaseEntity {
 
   @Column({ type: 'enum', enum: RoleEnum, nullable: true })
   role: RoleEnum;
+
+  @Column({ type: 'enum', enum: StatusEnum, nullable: true })
+  status: StatusEnum;
+
+  @BeforeInsert()
+  private setStatus() {
+    this.status =
+      this.role === RoleEnum.manager ? StatusEnum.pending : StatusEnum.approved;
+  }
 }
