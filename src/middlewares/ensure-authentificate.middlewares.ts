@@ -8,9 +8,9 @@ export const AuthentificationCheck = async (
   res: Response,
   next: NextFunction
 ) => {
-  let accessToken = req.cookies.accessToken;
+  const { accessToken } = req.cookies;
   if (!accessToken) throw new UnAuthorizedError();
-  let currentUser = jwtServices.verify(accessToken);
+  const currentUser = jwtServices.verify(accessToken);
   if (!currentUser) throw new UnAuthorizedError();
   req.currentUser = currentUser;
   next();

@@ -1,4 +1,4 @@
-import { CustomError } from "./CustomError.error";
+import { CustomError } from './CustomError.error';
 
 export class BadRequestError extends CustomError {
   reason = 'Bad request';

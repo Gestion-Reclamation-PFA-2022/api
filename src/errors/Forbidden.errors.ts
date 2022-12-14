@@ -1,4 +1,4 @@
-import { CustomError } from "./CustomError.error";
+import { CustomError } from './CustomError.error';
 
 export class ForbiddenError extends CustomError {
   reason = '403 not found';

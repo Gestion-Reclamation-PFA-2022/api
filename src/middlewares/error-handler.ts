@@ -13,7 +13,7 @@ const errorHandler = (
 
   res.status(500).json({
     reason: 'Something went wrong',
-  })
+  });
 };
 
 export { errorHandler };
