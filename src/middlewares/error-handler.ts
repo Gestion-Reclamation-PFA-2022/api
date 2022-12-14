@@ -1,8 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import { NotFoundError } from '../errors/NotFound.errors';
-import { BadRequestError } from '../errors/BadRequest.errors';
-import { UnAuthorizedError } from '../errors/UnAuthorized.errors';
-import { ForbiddenError } from '../errors/Forbidden.errors';
+import { NextFunction, Request, Response } from 'express';
+import { CustomError } from '../errors/CustomError.error';
 
 const errorHandler = (
   err: Error,
@@ -10,17 +7,13 @@ const errorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  if (err instanceof BadRequestError) {
-    res.status(400).send(err.reason);
-  } else if (err instanceof NotFoundError) {
-    res.status(404).send(err.reason);
-  } else if (err instanceof UnAuthorizedError) {
-    res.status(401).send(err.reason);
-  } else if (err instanceof ForbiddenError) {
-    res.status(403).send(err.reason);
-  } else {
-    res.status(500).send(err.message);
+  if (err instanceof CustomError) {
+    return res.status(err.status).json({ reason: err.reason });
   }
+
+  res.status(500).json({
+    reason: 'Something went wrong',
+  })
 };
 
 export { errorHandler };
