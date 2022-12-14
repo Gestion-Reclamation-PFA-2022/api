@@ -48,21 +48,17 @@ async function start() {
     console.log(` app running on port ${process.env.SERVER_PORT}`);
   });
 
-  process.on('SIGINT', () => {
-    console.log('closing http server');
-    server.close(() => {
-      console.log('HTTP closed');
-      process.exit(1);
-    });
-  });
+  const signals = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
 
-  process.on('SIGTERM', () => {
-    console.log('closing http server');
-    server.close(() => {
-      console.log('HTTP closed');
-      process.exit(1);
+  for (const signal of signals) {
+    process.on(signal, () => {
+      console.log('closing http server');
+      server.close(() => {
+        console.log('HTTP closed');
+        process.exit(1);
+      });
     });
-  });
+  }
 }
 
 start();
