@@ -6,8 +6,10 @@ import {
   loginValidator,
   reclamationValidator,
   roleSignup,
+  statusManagers,
 } from '../validators/validators';
 import { AuthentificationCheck } from '../middlewares/ensure-authentificate.middlewares';
+import { ensureRole } from '../middlewares/ensure-role.middlewares';
 import reclamationControllers from '../controllers/reclamation.controllers';
 
 const router = Router();
@@ -43,6 +45,18 @@ router.post(
   reclamationValidator,
   validation,
   reclamationControllers.create
+);
+
+//Testing admin management
+router.get(
+  '/api/admin/managers/:status',
+  AuthentificationCheck,
+  ensureRole,
+  statusManagers,
+  validation,
+  (req: Request, res: Response) => {
+    res.status(200).send('hello admin');
+  }
 );
 
 export { router as UserRouter };

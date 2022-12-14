@@ -1,5 +1,6 @@
 import { body, oneOf, param } from 'express-validator';
 import RoleEnum from '../enums/role.enums';
+import StatusEnum from '../enums/status.enums';
 
 export const signupValidator = [
   body('email').isEmail().withMessage('Email must be valid'),
@@ -65,5 +66,20 @@ export const roleLogin = [
       param('role').toUpperCase().equals(RoleEnum.admin),
     ],
     'role undefined'
+  ),
+];
+
+export const statusManagers = [
+  param('status')
+    .isString()
+    .isLength({ min: 4 })
+    .withMessage('status undefined'),
+  oneOf(
+    [
+      param('status').toUpperCase().equals(StatusEnum.approved),
+      param('status').toUpperCase().equals(StatusEnum.pending),
+      param('status').toUpperCase().equals(StatusEnum.declined),
+    ],
+    'status undefined'
   ),
 ];
