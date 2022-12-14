@@ -35,7 +35,7 @@ router.get(
   '/api/user/me',
   AuthentificationCheck,
   (req: Request, res: Response) => {
-    res.status(200).send('hello');
+    res.status(200).json(req.currentUser);
   }
 );
 
@@ -55,7 +55,9 @@ router.get(
   statusManagers,
   validation,
   (req: Request, res: Response) => {
-    res.status(200).send('hello admin');
+    res.status(200).json({
+      message: 'hello admin',
+    });
   }
 );
 
