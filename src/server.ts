@@ -44,8 +44,8 @@ async function start() {
       console.log(err.message);
     });
 
-  const server = app.listen(process.env.SERVER_PORT, () => {
-    console.log(` app running on port ${process.env.SERVER_PORT}`);
+  const server = app.listen(process.env.SERVER_PORT || 3000, () => {
+    console.log(` app running on port ${process.env.SERVER_PORT || 3000}`);
   });
 
   const signals = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
