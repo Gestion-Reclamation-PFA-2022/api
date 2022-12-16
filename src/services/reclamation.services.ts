@@ -4,13 +4,13 @@ import { User } from '../models/User';
 
 class reclamationSercice {
   public async create(reclamation: ReclamationAttrs) {
-    return await Reclamation.create(reclamation as Reclamation).save();
+    return Reclamation.create(reclamation as Reclamation).save();
   }
   public async getAllReclamations() {
-    return await Reclamation.find();
+    return Reclamation.find();
   }
   public async getUserReclamations(user: User) {
-    return await Reclamation.find();
+    return Reclamation.find();
   }
 }
 

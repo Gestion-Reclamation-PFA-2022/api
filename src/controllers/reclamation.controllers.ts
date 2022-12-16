@@ -8,7 +8,7 @@ class ReclamationController {
     let currentUser = req.currentUser as PayloadAttrs;
     let userExist = await userServices.getByEmail(currentUser.email);
     if (!userExist) {
-      res.status(400).send('login again');
+      res.status(400).send('login again'); // TODO: change this to custom error
     } else {
       let { subject, description, date } = req.body;
       let newReclamation = {

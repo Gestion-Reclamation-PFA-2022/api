@@ -1,14 +1,14 @@
-import express from 'express';
-import helmet from 'helmet';
-import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import cookieParser from 'cookie-parser';
+import express from 'express';
 import 'express-async-errors';
+import helmet from 'helmet';
+import morgan from 'morgan';
 import AppDataSource from './db/db';
 import { errorHandler } from './middlewares/error-handler';
-import { UserRouter } from './routes/user.routes';
 import { NotFoundRouter } from './routes/404.routes';
+import { UserRouter } from './routes/user.routes';
 
 async function start() {
   const app = express();
@@ -44,25 +44,21 @@ async function start() {
       console.log(err.message);
     });
 
-  const server = app.listen(process.env.SERVER_PORT, () => {
-    console.log(` app running on port ${process.env.SERVER_PORT}`);
+  const server = app.listen(process.env.SERVER_PORT || 3000, () => {
+    console.log(` app running on port ${process.env.SERVER_PORT || 3000}`);
   });
 
-  process.on('SIGINT', () => {
-    console.log('closing http server');
-    server.close(() => {
-      console.log('HTTP closed');
-      process.exit(1);
-    });
-  });
+  const signals = ['SIGINT', 'SIGTERM', 'SIGQUIT'];
 
-  process.on('SIGTERM', () => {
-    console.log('closing http server');
-    server.close(() => {
-      console.log('HTTP closed');
-      process.exit(1);
+  for (const signal of signals) {
+    process.on(signal, () => {
+      console.log('closing http server');
+      server.close(() => {
+        console.log('HTTP closed');
+        process.exit(1);
+      });
     });
-  });
+  }
 }
 
 start();
