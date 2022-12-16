@@ -9,6 +9,7 @@ import {
   BeforeInsert,
   BeforeUpdate,
   AfterInsert,
+  AfterRemove,
 } from 'typeorm';
 import RoleEnum from '../enums/role.enums';
 import StatusEnum from '../enums/status.enums';
@@ -44,5 +45,17 @@ export class User extends BaseEntity {
   private setStatus() {
     this.status =
       this.role === RoleEnum.manager ? StatusEnum.pending : StatusEnum.approved;
+  }
+
+  @AfterRemove()
+  private notifyAll() {
+    console.log(this.id + ' got deleted');
+  }
+
+  toJSON() {
+    return {
+      ...this,
+      password: undefined,
+    };
   }
 }

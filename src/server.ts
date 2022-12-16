@@ -16,6 +16,11 @@ async function start() {
   dotenv.config();
 
   app.use(express.json());
+  app.use(
+    express.urlencoded({
+      extended: true,
+    })
+  );
   app.use(cookieParser());
 
   app.use(helmet.xssFilter());
@@ -53,8 +58,9 @@ async function start() {
   for (const signal of signals) {
     process.on(signal, () => {
       console.log('closing http server');
-      server.close(() => {
+      server.close(async () => {
         console.log('HTTP closed');
+        await AppDataSource.destroy();
         process.exit(1);
       });
     });

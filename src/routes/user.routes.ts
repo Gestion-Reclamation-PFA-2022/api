@@ -47,7 +47,7 @@ router.post(
   reclamationControllers.create
 );
 
-//Testing admin management
+//  admin management
 router.get(
   '/api/admin/managers/:status',
   AuthentificationCheck,
