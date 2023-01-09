@@ -20,6 +20,12 @@ class UserService {
   public async getByPhone(phone: string) {
     return User.findOne({ where: { phone: phone } });
   }
+  // public async getUserReclamations(email: string) {
+  //   return User.find({
+  //     relations: { reclamations: true },
+  //     where: { email: email },
+  //   });
+  // }
 }
 
 export default new UserService();

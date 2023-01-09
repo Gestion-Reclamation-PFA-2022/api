@@ -11,6 +11,8 @@ const errorHandler = (
     return res.status(err.status).json({ reason: err.reason });
   }
 
+  console.log(err);
+
   res.status(500).json({
     reason: 'Something went wrong',
   });

@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import userControllers from '../controllers/user.controllers';
 import validation from '../middlewares/validation.middlewares';
 import {
@@ -11,6 +11,7 @@ import {
 import { AuthentificationCheck } from '../middlewares/ensure-authentificate.middlewares';
 import { ensureRole } from '../middlewares/ensure-role.middlewares';
 import reclamationControllers from '../controllers/reclamation.controllers';
+import RoleEnum from '../enums/role.enums';
 
 const router = Router();
 
@@ -47,16 +48,24 @@ router.post(
   reclamationControllers.create
 );
 
+router.get(
+  '/api/user/me/my-reclamations',
+  AuthentificationCheck,
+  reclamationControllers.getMyReclamations
+);
+
 //  admin management
 router.get(
   '/api/admin/managers/:status',
   AuthentificationCheck,
-  ensureRole,
+  async (req: Request, res: Response, next: NextFunction) => {
+    (await ensureRole(RoleEnum.admin))(req, res, next);
+  },
   statusManagers,
   validation,
   (req: Request, res: Response) => {
     res.status(200).json({
-      message: 'hello admin',
+      message: 'hello ' + req.params.status,
     });
   }
 );

@@ -9,8 +9,18 @@ class reclamationSercice {
   public async getAllReclamations() {
     return Reclamation.find();
   }
+
   public async getUserReclamations(user: User) {
-    return Reclamation.find();
+    return Reclamation.find({
+      where: {
+        user: {
+          id: user.id,
+        },
+      },
+      relations: {
+        user: true,
+      },
+    });
   }
 }
 

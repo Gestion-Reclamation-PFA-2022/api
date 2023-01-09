@@ -3,10 +3,16 @@ import { UserAttrs } from '../interfaces/user.interfaces';
 import { Response } from 'express';
 
 const appendSession = async (res: Response, payload: UserAttrs) => {
-  const user = Object.create({
-    ...payload,
-    password: undefined,
-  });
+  console.log(payload);
+
+  const user = Object.assign(
+    {},
+    {
+      ...payload,
+      password: undefined,
+    }
+  );
+  console.log(user);
 
   const token = jwtServices.sign({
     ...user,
@@ -14,7 +20,7 @@ const appendSession = async (res: Response, payload: UserAttrs) => {
 
   res.cookie('accessToken', token, {
     httpOnly: true,
-    secure: true,
+    secure: false,
   });
 };
 

@@ -21,6 +21,6 @@ RUN npm ci --only=production
 COPY --from=build /app/build ./build
 COPY --from=build /app/.env /app/.env
 
-EXPOSE 3000
+EXPOSE 3002
 
 CMD ["node", "."]
