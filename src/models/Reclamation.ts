@@ -18,7 +18,7 @@ export class Reclamation extends BaseEntity {
   @Column({ nullable: false })
   description: string;
 
-  @Column({ nullable: false, default: new Date() })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   date?: Date;
 
   @ManyToOne(() => User, (user) => user.reclamations)
