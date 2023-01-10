@@ -1,15 +1,11 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  BaseEntity,
-  OneToMany,
-  ManyToMany,
-  JoinTable,
-  BeforeInsert,
-  BeforeUpdate,
-  AfterInsert,
   AfterRemove,
+  BaseEntity,
+  BeforeInsert,
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import RoleEnum from '../enums/role.enums';
 import StatusEnum from '../enums/status.enums';

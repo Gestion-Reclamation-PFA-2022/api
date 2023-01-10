@@ -8,18 +8,17 @@ class ReclamationController {
   public async create(req: Request, res: Response) {
     const currentUser = req.currentUser as PayloadAttrs;
     const userExist = await userServices.getByEmail(currentUser.email);
-    if (!userExist) {
-      res.status(400).send('login again'); // TODO: change this to custom error
-    } else {
-      let { subject, description } = req.body;
 
-      await reclamationServices.create({
-        subject: subject,
-        description: description,
-        user: userExist,
-      });
-      res.status(200).send('reclamation added');
-    }
+    if (!userExist) return res.status(400).send('login again'); // TODO: change this to custom error
+
+    const { subject, description } = req.body;
+
+    await reclamationServices.create({
+      subject: subject,
+      description: description,
+      user: userExist,
+    });
+    res.status(200).send('reclamation added');
   }
 
   public async getMyReclamations(req: Request, res: Response) {

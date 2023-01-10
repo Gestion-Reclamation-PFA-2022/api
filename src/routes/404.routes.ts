@@ -3,7 +3,7 @@ import { NotFoundError } from '../errors/NotFound.errors';
 
 const router = Router();
 
-router.all('*', (req: Request, res: Response) => {
+router.all('*', (_req: Request, _res: Response) => {
   throw new NotFoundError();
 });
 
