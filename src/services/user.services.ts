@@ -7,6 +7,11 @@ class UserService {
   public async getAll() {
     return User.find();
   }
+
+  public async getManagerById(id: number) {
+    return User.findOne({ where: { id: id, role: RoleEnum.manager } });
+  }
+
   public async getByName(name: string) {
     return User.findOne({ where: { name: name } });
   }
