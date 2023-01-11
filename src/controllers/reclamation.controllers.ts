@@ -49,6 +49,13 @@ class ReclamationController {
       message: 'manager assigned',
     });
   }
+
+  public async deleteReclamation(req: Request, res: Response) {
+    const id: string = req.params.id;
+    res
+      .status(200)
+      .send(await reclamationServices.deleteReclamationsById(parseInt(id)));
+  }
 }
 
 export default new ReclamationController();
