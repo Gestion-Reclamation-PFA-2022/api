@@ -46,7 +46,7 @@ class UserController {
   }
 
   public async getPendingManager(req: Request, res: Response) {
-    res.status(200).send(userServices.getPendingManagers);
+    res.status(200).send(await userServices.getPendingManagers());
   }
 
   public async signout(req: Request, res: Response) {

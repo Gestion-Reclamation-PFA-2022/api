@@ -10,7 +10,8 @@ export const ensureRole = async (role: RoleEnum) => {
     if (!currentUser) throw new UnAuthorizedError();
     const user = await userServices.getByEmail(currentUser.email);
     if (!user) throw new UnAuthorizedError();
-    const { role: userRole } = user;
+    const userRole: string = user.role;
+    //const { role: userRole } = user;
     if (userRole !== role)
       throw new ForbiddenError('You dont have role to access this page');
     next();
