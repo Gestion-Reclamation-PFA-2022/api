@@ -32,6 +32,10 @@ class ReclamationService {
       },
     });
   }
+
+  public async deleteReclamationsById(id: number) {
+    return Reclamation.delete({ id: id });
+  }
 }
 
 export default new ReclamationService();

@@ -6,6 +6,7 @@ import RoleEnum from '../enums/role.enums';
 
 export const ensureRole = async (role: RoleEnum) => {
   return async (req: Request, res: Response, next: NextFunction) => {
+    console.log('HERE HERE');
     const currentUser = req.currentUser;
     if (!currentUser) throw new UnAuthorizedError();
     const user = await userServices.getByEmail(currentUser.email);

@@ -83,3 +83,7 @@ export const statusManagers = [
     'status undefined'
   ),
 ];
+
+export const idReclamation = [
+  param('id').isNumeric().isLength({ min: 1 }).withMessage('id incorrect'),
+];

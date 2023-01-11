@@ -12,6 +12,11 @@ import {
   roleSignup,
   signupValidator,
   statusManagers,
+<<<<<<< HEAD
+=======
+  roleLogin,
+  idReclamation,
+>>>>>>> delete reclamation done
 } from '../validators/validators';
 
 const router = Router();
@@ -47,6 +52,16 @@ router.post(
   validation,
   reclamationControllers.create
 );
+
+router.post(
+  '/api/user/me/delete/:id',
+  AuthentificationCheck,
+  idReclamation,
+  validation,
+  reclamationControllers.deleteReclamation
+);
+
+router.post('/api/user/logout', userControllers.signout);
 
 //  admin management
 
