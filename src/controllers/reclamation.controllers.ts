@@ -30,6 +30,25 @@ class ReclamationController {
     );
     res.json(reclamations);
   }
+
+  public async assignManager(req: Request, res: Response) {
+    const currentUser = req.currentUser as PayloadAttrs;
+    const userExist = await userServices.getByEmail(currentUser.email);
+    if (!userExist) throw new NotFoundError('user not found');
+    const { id, managerId } = req.params;
+    const reclamation = await reclamationServices.getById(+id);
+    if (!reclamation) throw new NotFoundError('reclamation not found');
+
+    const manager = await userServices.getManagerById(+managerId);
+    if (!manager) throw new NotFoundError('manager not found');
+
+    await reclamationServices.assignManager(reclamation, manager);
+
+    res.status(200).send({
+      success: true,
+      message: 'manager assigned',
+    });
+  }
 }
 
 export default new ReclamationController();

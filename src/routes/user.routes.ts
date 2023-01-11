@@ -1,19 +1,18 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response, Router } from 'express';
+import reclamationControllers from '../controllers/reclamation.controllers';
 import userControllers from '../controllers/user.controllers';
-import validation from '../middlewares/validation.middlewares';
-import {
-  signupValidator,
-  loginValidator,
-  reclamationValidator,
-  roleSignup,
-  roleLogin,
-  statusManagers,
-  roleLogin,
-} from '../validators/validators';
+import RoleEnum from '../enums/role.enums';
 import { AuthentificationCheck } from '../middlewares/ensure-authentificate.middlewares';
 import { ensureRole } from '../middlewares/ensure-role.middlewares';
-import reclamationControllers from '../controllers/reclamation.controllers';
-import RoleEnum from '../enums/role.enums';
+import validation from '../middlewares/validation.middlewares';
+import {
+  loginValidator,
+  reclamationValidator,
+  roleLogin,
+  roleSignup,
+  signupValidator,
+  statusManagers,
+} from '../validators/validators';
 
 const router = Router();
 
@@ -73,6 +72,15 @@ router.get(
       message: 'hello ' + req.params.status,
     });
   }
+);
+
+router.post(
+  '/api/assign-reclamation/:id/:managerId',
+  AuthentificationCheck,
+  async (req: Request, res: Response, next: NextFunction) => {
+    (await ensureRole(RoleEnum.admin))(req, res, next);
+  },
+  reclamationControllers.assignManager
 );
 
 export { router as UserRouter };
