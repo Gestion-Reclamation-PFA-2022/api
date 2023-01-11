@@ -6,6 +6,7 @@ import {
   loginValidator,
   reclamationValidator,
   roleSignup,
+  roleLogin,
   statusManagers,
 } from '../validators/validators';
 import { AuthentificationCheck } from '../middlewares/ensure-authentificate.middlewares';
@@ -27,6 +28,7 @@ router.post(
 
 router.post(
   '/api/:role/login',
+  roleLogin,
   loginValidator,
   validation,
   userControllers.login
