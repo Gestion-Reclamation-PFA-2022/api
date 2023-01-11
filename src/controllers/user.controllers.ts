@@ -45,6 +45,10 @@ class UserController {
     }
   }
 
+  public async getPendingManager(req: Request, res: Response) {
+    res.status(200).send(userServices.getPendingManagers);
+  }
+
   public async signout(req: Request, res: Response) {
     deleteSession(res);
   }

@@ -10,7 +10,7 @@ const AppDataSource = new DataSource({
   port: parseInt(process.env.MYSQL_DB_PORT as string) || 3306,
   username: process.env.MYSQL_DB_USERNAME || 'root',
   database: process.env.MYSQL_DB_NAME || 'api',
-  password: process.env.MYSQL_DB_PASSWORD || '123',
+  //password: process.env.MYSQL_DB_PASSWORD || '123',
   entities: glob.sync(__dirname + '/../models/*.js'),
   synchronize: true,
 });
