@@ -8,6 +8,7 @@ import {
   roleSignup,
   roleLogin,
   statusManagers,
+  roleLogin,
 } from '../validators/validators';
 import { AuthentificationCheck } from '../middlewares/ensure-authentificate.middlewares';
 import { ensureRole } from '../middlewares/ensure-role.middlewares';
@@ -37,26 +38,28 @@ router.post(
 router.get(
   '/api/user/me',
   AuthentificationCheck,
-  (req: Request, res: Response) => {
-    res.status(200).json(req.currentUser);
-  }
+  reclamationControllers.getMyReclamations
 );
 
 router.post(
-  '/api/user/me/create-reclamation',
+  '/api/user/me/new-reclamation',
   AuthentificationCheck,
   reclamationValidator,
   validation,
   reclamationControllers.create
 );
 
+//  admin management
+
 router.get(
-  '/api/user/me/my-reclamations',
+  '/api/admin/me',
   AuthentificationCheck,
-  reclamationControllers.getMyReclamations
+  async (req: Request, res: Response, next: NextFunction) => {
+    (await ensureRole(RoleEnum.admin))(req, res, next);
+  },
+  userControllers.getPendingManager
 );
 
-//  admin management
 router.get(
   '/api/admin/managers/:status',
   AuthentificationCheck,

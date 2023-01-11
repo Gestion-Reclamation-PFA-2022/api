@@ -1,5 +1,7 @@
 import { User } from '../models/User';
 import { UserAttrs } from '../interfaces/user.interfaces';
+import RoleEnum from '../enums/role.enums';
+import StatusEnum from '../enums/status.enums';
 
 class UserService {
   public async getAll() {
@@ -20,12 +22,22 @@ class UserService {
   public async getByPhone(phone: string) {
     return User.findOne({ where: { phone: phone } });
   }
-  // public async getUserReclamations(email: string) {
-  //   return User.find({
-  //     relations: { reclamations: true },
-  //     where: { email: email },
-  //   });
-  // }
+
+  public async getPendingManagers() {
+    return User.find({
+      where: { role: RoleEnum.manager, status: StatusEnum.pending },
+    });
+  }
+  public async getApprovedManagers() {
+    return User.find({
+      where: { role: RoleEnum.manager, status: StatusEnum.approved },
+    });
+  }
+  public async getDeclinedManagers() {
+    return User.find({
+      where: { role: RoleEnum.manager, status: StatusEnum.declined },
+    });
+  }
 }
 
 export default new UserService();
