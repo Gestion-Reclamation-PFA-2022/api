@@ -2,7 +2,7 @@ import { Reclamation } from '../models/Reclamation';
 import { ReclamationAttrs } from '../interfaces/reclamation.interfaces';
 import { User } from '../models/User';
 
-class reclamationSercice {
+class ReclamationService {
   public async create(reclamation: ReclamationAttrs) {
     return Reclamation.create(reclamation as Reclamation).save();
   }
@@ -24,4 +24,4 @@ class reclamationSercice {
   }
 }
 
-export default new reclamationSercice();
+export default new ReclamationService();
