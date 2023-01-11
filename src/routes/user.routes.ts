@@ -8,15 +8,11 @@ import validation from '../middlewares/validation.middlewares';
 import {
   loginValidator,
   reclamationValidator,
-  roleLogin,
   roleSignup,
   signupValidator,
   statusManagers,
-<<<<<<< HEAD
-=======
   roleLogin,
   idReclamation,
->>>>>>> delete reclamation done
 } from '../validators/validators';
 
 const router = Router();
