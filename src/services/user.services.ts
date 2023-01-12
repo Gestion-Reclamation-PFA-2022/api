@@ -2,6 +2,7 @@ import { User } from '../models/User';
 import { UserAttrs } from '../interfaces/user.interfaces';
 import RoleEnum from '../enums/role.enums';
 import StatusEnum from '../enums/status.enums';
+import { BadRequestError } from '../errors/BadRequest.errors';
 
 class UserService {
   public async getAll() {
@@ -42,6 +43,18 @@ class UserService {
     return User.find({
       where: { role: RoleEnum.manager, status: StatusEnum.declined },
     });
+  }
+
+  public async updateManagersStatus(id: number, status: StatusEnum) {
+    //return User.update({ id: id, role: RoleEnum.manager }, { role: status });
+    const user = await User.findOne({
+      where: { id: id, role: RoleEnum.manager },
+    });
+    if (!user) {
+      throw new BadRequestError('user not found');
+    }
+    Object.assign(user, { status: status });
+    return await user.save();
   }
 }
 

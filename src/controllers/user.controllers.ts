@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import RoleEnum from '../enums/role.enums';
+import StatusEnum from '../enums/status.enums';
 import { BadRequestError } from '../errors/BadRequest.errors';
 import pwdServices from '../services/pwd.services';
 import userServices from '../services/user.services';
@@ -51,6 +52,13 @@ class UserController {
 
   public async signout(req: Request, res: Response) {
     deleteSession(res);
+  }
+
+  public async ApprovingManager(req: Request, res: Response) {
+    const id: string = req.params.id;
+    res
+      .status(200)
+      .send(await userServices.updateManagersStatus(+id, StatusEnum.approved));
   }
 }
 
