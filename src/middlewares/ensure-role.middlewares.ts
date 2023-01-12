@@ -4,7 +4,7 @@ import { ForbiddenError } from '../errors/Forbidden.errors';
 import userServices from '../services/user.services';
 import RoleEnum from '../enums/role.enums';
 
-export const ensureRole = async (role: RoleEnum) => {
+export const ensureRole = (role: RoleEnum) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     console.log('HERE HERE');
     const currentUser = req.currentUser;

@@ -65,7 +65,7 @@ router.get(
   '/api/admin/me',
   AuthentificationCheck,
   async (req: Request, res: Response, next: NextFunction) => {
-    (await ensureRole(RoleEnum.admin))(req, res, next);
+    await ensureRole(RoleEnum.admin)(req, res, next);
   },
   userControllers.getPendingManager
 );
@@ -74,7 +74,7 @@ router.get(
   '/api/admin/managers/:status',
   AuthentificationCheck,
   async (req: Request, res: Response, next: NextFunction) => {
-    (await ensureRole(RoleEnum.admin))(req, res, next);
+    await ensureRole(RoleEnum.admin)(req, res, next);
   },
   statusManagers,
   validation,
@@ -89,7 +89,7 @@ router.post(
   '/api/assign-reclamation/:id/:managerId',
   AuthentificationCheck,
   async (req: Request, res: Response, next: NextFunction) => {
-    (await ensureRole(RoleEnum.admin))(req, res, next);
+    await ensureRole(RoleEnum.admin)(req, res, next);
   },
   reclamationControllers.assignManager
 );
