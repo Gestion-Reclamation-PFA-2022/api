@@ -27,13 +27,7 @@ router.post(
   userControllers.signup
 );
 
-router.post(
-  '/api/:role/login',
-  roleLogin,
-  loginValidator,
-  validation,
-  userControllers.login
-);
+router.post('/api/:role/login', roleLogin, validation, userControllers.login);
 
 router.get(
   '/api/user/me',

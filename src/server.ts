@@ -46,7 +46,8 @@ async function start() {
       console.log('connected to mysql db');
     })
     .catch((err): void => {
-      console.log(err.message);
+      console.log(err);
+      process.exit();
     });
 
   const server = app.listen(process.env.SERVER_PORT || 3000, () => {
@@ -60,7 +61,7 @@ async function start() {
       console.log('closing http server');
       server.close(async () => {
         console.log('HTTP closed');
-        await AppDataSource.destroy();
+        await AppDataSource?.destroy();
         process.exit(1);
       });
     });

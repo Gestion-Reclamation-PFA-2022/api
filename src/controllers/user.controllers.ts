@@ -23,7 +23,7 @@ class UserController {
         email: email,
         phone: phone,
         password: await pwdServices.hash(password),
-        role: req.params.role as RoleEnum,
+        role: req.params.role.toUpperCase() as RoleEnum,
       };
       await userServices.create(newUser);
       res.status(200).send('working');
