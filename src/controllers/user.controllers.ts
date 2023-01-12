@@ -56,9 +56,11 @@ class UserController {
 
   public async ApprovingManager(req: Request, res: Response) {
     const id: string = req.params.id;
+    const user = await userServices.getManagerById(+id);
+    if (!user) throw new BadRequestError('user not found');
     res
       .status(200)
-      .send(await userServices.updateManagersStatus(+id, StatusEnum.approved));
+      .send(await userServices.updateManagersStatus(user, StatusEnum.approved));
   }
 }
 

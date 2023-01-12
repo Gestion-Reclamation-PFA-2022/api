@@ -45,15 +45,8 @@ class UserService {
     });
   }
 
-  public async updateManagersStatus(id: number, status: StatusEnum) {
-    //return User.update({ id: id, role: RoleEnum.manager }, { role: status });
-    const user = await User.findOne({
-      where: { id: id, role: RoleEnum.manager },
-    });
-    if (!user) {
-      throw new BadRequestError('user not found');
-    }
-    Object.assign(user, { status: status });
+  public async updateManagersStatus(user: User, status: StatusEnum) {
+    user.status = status;
     return await user.save();
   }
 }
