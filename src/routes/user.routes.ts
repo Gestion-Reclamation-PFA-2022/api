@@ -6,7 +6,7 @@ import { AuthentificationCheck } from '../middlewares/ensure-authentificate.midd
 import { ensureRole } from '../middlewares/ensure-role.middlewares';
 import validation from '../middlewares/validation.middlewares';
 import {
-  loginValidator,
+  idUser,
   reclamationValidator,
   roleSignup,
   signupValidator,
@@ -62,6 +62,16 @@ router.get(
     await ensureRole(RoleEnum.admin)(req, res, next);
   },
   userControllers.getPendingManager
+);
+
+router.post(
+  '/api/admin/me/:id/approving',
+  AuthentificationCheck,
+  idUser,
+  async (req: Request, res: Response, next: NextFunction) => {
+    await ensureRole(RoleEnum.admin)(req, res, next);
+  },
+  userControllers.ApprovingManager
 );
 
 router.get(
